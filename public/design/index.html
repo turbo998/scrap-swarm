@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#171910" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <title>废土斗机祭 · 角色与机体设定集</title>
+    <style>
+      :root {
+        --ink: #171910;
+        --deep: #20251b;
+        --panel: #2b3025;
+        --olive: #74775c;
+        --paper: #e6d7a8;
+        --muted: #b7ad8c;
+        --amber: #e4a43c;
+        --rust: #9b4e31;
+        --green: #b9dd78;
+        --cyan: #9cd7c8;
+        --red: #df653d;
+        font-family: "Bahnschrift", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+        color: var(--paper);
+        background: var(--ink);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-width: 320px;
+        overflow-x: hidden;
+        background:
+          radial-gradient(circle at 74% 8%, #b2732828, transparent 26rem),
+          repeating-linear-gradient(0deg, transparent 0 4px, #00000012 5px),
+          linear-gradient(145deg, #37372a, var(--ink) 42rem);
+      }
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        pointer-events: none;
+        content: "";
+        background: radial-gradient(circle, transparent 55%, #090a06aa 100%);
+      }
+      a { color: inherit; }
+      .shell { width: min(1240px, calc(100% - 36px)); margin: auto; }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid #716a4f;
+        background: #171a13eb;
+        backdrop-filter: blur(12px);
+      }
+      .topbar .shell {
+        display: flex;
+        min-height: 58px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      .brand {
+        color: var(--amber);
+        font: 900 13px/1.1 "Cascadia Mono", Consolas, monospace;
+        letter-spacing: .13em;
+        text-decoration: none;
+      }
+      nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px; }
+      nav a {
+        color: var(--muted);
+        font: 700 11px "Cascadia Mono", Consolas, monospace;
+        text-decoration: none;
+      }
+      nav a:hover, nav a:focus-visible { color: var(--amber); outline: none; }
+      .hero {
+        position: relative;
+        display: grid;
+        min-height: 650px;
+        grid-template-columns: 1.02fr .98fr;
+        align-items: center;
+        gap: 44px;
+        padding-block: 76px 58px;
+      }
+      .hero::after {
+        position: absolute;
+        right: 0;
+        bottom: 7%;
+        width: 62%;
+        height: 1px;
+        content: "";
+        background: var(--amber);
+        box-shadow: 0 12px #9b4e31, 0 24px #665536;
+        transform: rotate(-9deg);
+        opacity: .45;
+      }
+      .eyebrow {
+        color: var(--amber);
+        font: 800 12px "Cascadia Mono", Consolas, monospace;
+        letter-spacing: .23em;
+      }
+      h1, h2, h3 { font-family: "Rockwell", "Noto Serif SC", "Songti SC", serif; }
+      h1 {
+        margin: 15px 0 18px;
+        font-size: clamp(54px, 8vw, 104px);
+        line-height: .86;
+        letter-spacing: .05em;
+        text-shadow: 5px 5px #65462c, 10px 10px #11130d;
+      }
+      h1 small {
+        display: block;
+        margin-top: 18px;
+        color: var(--amber);
+        font: 800 .16em/1.2 "Cascadia Mono", Consolas, monospace;
+        letter-spacing: .24em;
+        text-shadow: none;
+      }
+      .lead { max-width: 650px; color: #d0c5a1; font-size: 16px; line-height: 1.9; }
+      .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+      .hero-meta span {
+        padding: 7px 11px;
+        border: 1px solid #6b664f;
+        background: #151911c9;
+        color: var(--green);
+        font: 700 11px "Cascadia Mono", Consolas, monospace;
+      }
+      .hero-art {
+        position: relative;
+        z-index: 2;
+        min-height: 510px;
+        border: 1px solid #6f674d;
+        background:
+          repeating-linear-gradient(110deg, transparent 0 20px, #e4a43c16 21px 23px),
+          radial-gradient(circle at 55% 38%, #b97a3347, transparent 38%),
+          #252b20;
+        clip-path: polygon(9% 0, 100% 0, 100% 92%, 91% 100%, 0 100%, 0 9%);
+        box-shadow: 22px 24px 0 #11130d99;
+      }
+      .hero-art svg { width: 100%; height: 510px; display: block; }
+      section { scroll-margin-top: 74px; padding-block: 64px; }
+      .section-head {
+        display: grid;
+        grid-template-columns: 1fr minmax(280px, 520px);
+        gap: 30px;
+        align-items: end;
+        margin-bottom: 28px;
+      }
+      .section-head h2 {
+        margin: 0;
+        color: var(--amber);
+        font-size: clamp(34px, 5vw, 62px);
+        line-height: 1;
+      }
+      .section-head p { margin: 0; color: var(--muted); line-height: 1.7; }
+      .turnaround {
+        display: grid;
+        grid-template-columns: 1.35fr .65fr;
+        gap: 18px;
+      }
+      .blueprint, .callouts, .map, .storyboard, .cast-card {
+        border: 1px solid #6b654e;
+        background:
+          linear-gradient(135deg, #ffffff08, transparent 35%),
+          repeating-linear-gradient(0deg, transparent 0 23px, #b9dd780c 24px),
+          #20251ceb;
+        box-shadow: 8px 9px 0 #11130da8;
+      }
+      .blueprint { min-height: 520px; padding: 22px; }
+      .blueprint svg { display: block; width: 100%; height: 475px; }
+      .callouts { padding: 26px; }
+      .callouts h3 { margin: 0 0 20px; color: var(--paper); font-size: 25px; }
+      .callout { padding: 13px 0; border-top: 1px dashed #67624c; }
+      .callout b { display: block; color: var(--amber); font-size: 12px; letter-spacing: .12em; }
+      .callout p { margin: 5px 0 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+      .swatches { display: flex; gap: 7px; margin-top: 22px; }
+      .swatches i { width: 36px; height: 36px; border: 2px solid #161811; border-radius: 50%; }
+      .cast-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+      .cast-card {
+        position: relative;
+        min-height: 480px;
+        overflow: hidden;
+        padding: 18px;
+      }
+      .cast-card::before {
+        position: absolute;
+        inset: 0 0 auto;
+        height: 5px;
+        content: "";
+        background: var(--accent, var(--amber));
+      }
+      .cast-card svg {
+        display: block;
+        width: 100%;
+        height: 245px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #5c5946;
+      }
+      .cast-card .number { color: var(--accent, var(--amber)); font: 800 11px "Cascadia Mono", monospace; }
+      .cast-card h3 { margin: 5px 0 3px; font-size: 25px; }
+      .cast-card em { color: var(--accent, var(--amber)); font-style: normal; font-size: 12px; }
+      .cast-card p { color: var(--muted); font-size: 13px; line-height: 1.65; }
+      .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+      .tags span { padding: 4px 7px; border: 1px solid #5e5c49; font: 700 10px "Cascadia Mono", monospace; }
+      .map { position: relative; min-height: 430px; padding: 28px; overflow: hidden; }
+      .map-lines { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .7; }
+      .node {
+        position: absolute;
+        width: 190px;
+        padding: 15px;
+        border: 1px solid #716b51;
+        background: #20261df2;
+        box-shadow: 6px 6px #11130d;
+      }
+      .node strong { display: block; color: var(--amber); }
+      .node small { color: var(--muted); line-height: 1.5; }
+      .node.r17 { left: 50%; top: 36%; transform: translateX(-50%); }
+      .node.ran { left: 7%; top: 10%; }
+      .node.hector { right: 7%; top: 10%; }
+      .node.public { left: 8%; bottom: 8%; }
+      .node.alliance { right: 8%; bottom: 8%; }
+      .storyboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; padding: 1px; }
+      .beat { min-height: 340px; padding: 18px; background: #1c2119; }
+      .beat svg { width: 100%; height: 190px; display: block; background: #30352a; }
+      .beat b { display: block; margin-top: 13px; color: var(--amber); font-size: 11px; letter-spacing: .16em; }
+      .beat h3 { margin: 5px 0 7px; font-size: 23px; }
+      .beat p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+      footer { padding: 36px 0 54px; border-top: 1px solid #5a5745; color: #918a70; font-size: 12px; }
+      .back {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 16px;
+        border: 1px solid var(--amber);
+        color: var(--amber);
+        font-weight: 800;
+        text-decoration: none;
+      }
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; padding-top: 54px; }
+        .hero-art { min-height: 420px; }
+        .hero-art svg { height: 420px; }
+        .section-head, .turnaround { grid-template-columns: 1fr; }
+        .cast-grid { grid-template-columns: repeat(2, 1fr); }
+        .storyboard { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 620px) {
+        .shell { width: min(100% - 22px, 1240px); }
+        .topbar .shell { align-items: flex-start; padding-block: 11px; }
+        nav { gap: 8px; }
+        nav a { font-size: 9px; }
+        h1 { font-size: 50px; }
+        .cast-grid { grid-template-columns: 1fr; }
+        .map { min-height: 660px; }
+        .node { width: 170px; }
+        .node.ran { left: 4%; }
+        .node.hector { top: 23%; right: 4%; }
+        .node.r17 { top: 42%; }
+        .node.public { left: 4%; bottom: 16%; }
+        .node.alliance { right: 4%; bottom: 3%; }
+      }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell">
+        <a class="brand" href="#top">WIC / CONCEPT FILE 019</a>
+        <nav aria-label="设定集导航">
+          <a href="#hero-sheet">R-17 三视图</a>
+          <a href="#cast">六组设计</a>
+          <a href="#relations">关系图</a>
+          <a href="#story">三幕分镜</a>
+          <a href="#architecture">程序化动画架构</a>
+          <a href="../">返回游戏</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <header class="hero shell">
+        <div>
+          <span class="eyebrow">原创概念设定集 · 大崩落后第 87 年</span>
+          <h1>废土斗机祭<small>WASTELAND IRON CIRCUIT</small></h1>
+          <p class="lead">能源被包装成擂台奖品时，一台维修机器人选择用战斗证明另一种力量：不是淘汰弱者，而是让所有人都拥有修复世界的工具。</p>
+          <div class="hero-meta">
+            <span>类型：热血机甲竞技</span>
+            <span>主角：R-17「锻火拳」</span>
+            <span>主题：维修 / 自主 / 共同体</span>
+          </div>
+        </div>
+        <figure class="hero-art" aria-label="R-17 锻火拳原创概念图">
+          <svg viewBox="0 0 560 510" role="img">
+            <defs>
+              <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#96977a"/><stop offset="1" stop-color="#555a49"/></linearGradient>
+              <filter id="shadow"><feDropShadow dx="15" dy="18" stdDeviation="7" flood-color="#080906" flood-opacity=".75"/></filter>
+            </defs>
+            <circle cx="382" cy="170" r="98" fill="#bc793227" stroke="#d99c45" stroke-opacity=".5" stroke-width="2"/>
+            <g opacity=".25" stroke="#e4a43c"><path d="M25 430 520 75"/><path d="M80 490 550 153"/><path d="M0 350 430 42"/></g>
+            <g transform="translate(113 34)" filter="url(#shadow)">
+              <ellipse cx="180" cy="405" rx="126" ry="25" fill="#11130d" opacity=".7"/>
+              <g id="treads">
+                <rect x="90" y="326" width="186" height="83" rx="30" fill="#23251f" stroke="#11130e" stroke-width="9"/>
+                <circle cx="135" cy="369" r="24" fill="#81714e" stroke="#34352e" stroke-width="10"/>
+                <circle cx="229" cy="369" r="24" fill="#81714e" stroke="#34352e" stroke-width="10"/>
+                <path d="M106 397h151" stroke="#4a4d40" stroke-width="8" stroke-dasharray="13 9"/>
+              </g>
+              <rect x="161" y="292" width="25" height="41" fill="#505544"/>
+              <rect x="91" y="145" width="35" height="150" rx="9" fill="#4c5145" stroke="#282a23" stroke-width="7"/>
+              <path d="M105 149v-45h16v45" fill="#814e31"/>
+              <path d="M120 121c-15-18-11-32 2-43" fill="none" stroke="#c8a25a" stroke-width="5" opacity=".4"/>
+              <rect x="126" y="142" width="132" height="157" rx="18" fill="url(#steel)" stroke="#282b23" stroke-width="9"/>
+              <path d="m135 286 111-130" stroke="#d79a3b" stroke-width="25" opacity=".88"/>
+              <rect x="155" y="171" width="75" height="48" fill="#ac813e" stroke="#34362c" stroke-width="5" transform="rotate(-4 192 195)"/>
+              <text x="192" y="202" text-anchor="middle" fill="#2d291f" font-family="monospace" font-size="24" font-weight="900">R-17</text>
+              <path d="M143 236a52 52 0 0 0 98 0" fill="none" stroke="#e6d7a8" stroke-width="4" stroke-dasharray="8 6"/>
+              <rect x="145" y="65" width="100" height="76" rx="15" fill="url(#steel)" stroke="#24271f" stroke-width="9"/>
+              <rect x="160" y="87" width="70" height="25" rx="5" fill="#172019" stroke="#30352c" stroke-width="5"/>
+              <path d="M174 99h42" stroke="#b9dd78" stroke-width="8" stroke-linecap="round"/>
+              <path d="M217 65 230 22" stroke="#6a6045" stroke-width="6"/>
+              <circle cx="232" cy="18" r="8" fill="#e4a43c"/>
+              <g transform="rotate(13 130 174)">
+                <rect x="77" y="156" width="43" height="131" rx="18" fill="#676b57" stroke="#292c24" stroke-width="8"/>
+                <circle cx="99" cy="166" r="11" fill="#a07942" stroke="#2d3028" stroke-width="6"/>
+                <circle cx="99" cy="275" r="11" fill="#a07942" stroke="#2d3028" stroke-width="6"/>
+                <circle cx="98" cy="296" r="29" fill="#353a31" stroke="#b9dd78" stroke-width="5"/>
+                <circle cx="98" cy="296" r="13" fill="#172019"/>
+              </g>
+              <g transform="rotate(-24 265 168)">
+                <rect x="253" y="150" width="45" height="137" rx="18" fill="#676b57" stroke="#292c24" stroke-width="8"/>
+                <circle cx="275" cy="162" r="11" fill="#a07942" stroke="#2d3028" stroke-width="6"/>
+                <circle cx="275" cy="277" r="11" fill="#a07942" stroke="#2d3028" stroke-width="6"/>
+                <rect x="255" y="278" width="126" height="42" rx="8" fill="#4f5649" stroke="#25271f" stroke-width="8"/>
+                <rect x="369" y="291" width="45" height="12" fill="#a9783d"/>
+              </g>
+              <circle cx="231" cy="270" r="7" fill="#b9dd78"/>
+              <circle cx="211" cy="270" r="7" fill="#a55434"/>
+            </g>
+            <text x="28" y="475" fill="#e4a43c" font-family="monospace" font-size="12" letter-spacing="3">MARTIAL SALVAGE UNIT / FRONT ACTION STUDY</text>
+          </svg>
+        </figure>
+      </header>
+
+      <section id="hero-sheet" class="shell">
+        <header class="section-head">
+          <h2>R-17 三视图</h2>
+          <p>保留履带底盘与维修机器人身份，以右拳炮、左磁场护臂和高位排气背包形成非对称武斗轮廓。</p>
+        </header>
+        <div class="turnaround">
+          <div class="blueprint">
+            <svg viewBox="0 0 800 475" role="img" aria-label="R-17 正面侧面背面概念图">
+              <g stroke="#55634b" stroke-width="1" opacity=".3">
+                <path d="M0 60h800M0 160h800M0 260h800M0 360h800"/>
+                <path d="M100 0v475M300 0v475M500 0v475M700 0v475"/>
+              </g>
+              <g fill="#e4a43c" font-family="monospace" font-size="14" font-weight="800">
+                <text x="125" y="32">FRONT / 正面</text><text x="359" y="32">SIDE / 侧面</text><text x="610" y="32">BACK / 背面</text>
+              </g>
+              <g transform="translate(80 52)">
+                <rect x="37" y="260" width="142" height="65" rx="24" fill="#24261f" stroke="#11130e" stroke-width="7"/>
+                <circle cx="75" cy="292" r="17" fill="#81714e"/><circle cx="141" cy="292" r="17" fill="#81714e"/>
+                <rect x="53" y="105" width="110" height="150" rx="16" fill="#74775c" stroke="#282b23" stroke-width="7"/>
+                <path d="M61 241 154 119" stroke="#d79a3b" stroke-width="19"/>
+                <rect x="67" y="30" width="82" height="65" rx="12" fill="#74775c" stroke="#282b23" stroke-width="7"/>
+                <rect x="80" y="51" width="56" height="20" fill="#172019"/><path d="M90 61h35" stroke="#b9dd78" stroke-width="6"/>
+                <path d="M137 31 148 2" stroke="#6a6045" stroke-width="5"/><circle cx="150" cy="0" r="6" fill="#e4a43c"/>
+                <path d="M55 127 21 223" stroke="#626854" stroke-width="23" stroke-linecap="round"/>
+                <circle cx="14" cy="235" r="24" fill="#353a31" stroke="#b9dd78" stroke-width="5"/>
+                <path d="m162 127 38 99" stroke="#626854" stroke-width="23" stroke-linecap="round"/>
+                <rect x="184" y="215" width="83" height="30" rx="6" fill="#4f5649" stroke="#25271f" stroke-width="6"/>
+              </g>
+              <g transform="translate(341 52)">
+                <rect x="25" y="260" width="149" height="65" rx="24" fill="#24261f" stroke="#11130e" stroke-width="7"/>
+                <circle cx="61" cy="292" r="17" fill="#81714e"/><circle cx="135" cy="292" r="17" fill="#81714e"/>
+                <rect x="52" y="107" width="83" height="148" rx="15" fill="#74775c" stroke="#282b23" stroke-width="7"/>
+                <rect x="23" y="116" width="33" height="128" rx="7" fill="#4c5145" stroke="#282a23" stroke-width="6"/>
+                <rect x="68" y="32" width="69" height="63" rx="12" fill="#74775c" stroke="#282b23" stroke-width="7"/>
+                <rect x="94" y="52" width="40" height="20" fill="#172019"/><path d="M103 62h25" stroke="#b9dd78" stroke-width="6"/>
+                <path d="m132 133 46 88" stroke="#626854" stroke-width="23" stroke-linecap="round"/>
+                <rect x="160" y="213" width="105" height="31" rx="6" fill="#4f5649" stroke="#25271f" stroke-width="6"/>
+                <path d="M35 117V66h14v50" fill="#814e31"/>
+              </g>
+              <g transform="translate(586 52)">
+                <rect x="23" y="260" width="150" height="65" rx="24" fill="#24261f" stroke="#11130e" stroke-width="7"/>
+                <circle cx="61" cy="292" r="17" fill="#81714e"/><circle cx="136" cy="292" r="17" fill="#81714e"/>
+                <rect x="50" y="106" width="98" height="149" rx="15" fill="#5e624f" stroke="#282b23" stroke-width="7"/>
+                <rect x="67" y="132" width="63" height="80" rx="8" fill="#353a31" stroke="#8e7d54" stroke-width="5"/>
+                <path d="M78 147h41M78 161h41M78 175h41" stroke="#b9dd78" stroke-width="3" stroke-dasharray="5 4"/>
+                <rect x="15" y="113" width="39" height="132" rx="7" fill="#4c5145" stroke="#282a23" stroke-width="6"/>
+                <rect x="61" y="31" width="77" height="64" rx="12" fill="#656957" stroke="#282b23" stroke-width="7"/>
+                <path d="M148 132 178 231M50 132 19 231" stroke="#626854" stroke-width="22" stroke-linecap="round"/>
+                <path d="M75 232a33 33 0 0 0 48 0" fill="none" stroke="#e6d7a8" stroke-width="4" stroke-dasharray="7 5"/>
+              </g>
+              <path d="M51 395h698" stroke="#e4a43c" stroke-width="2"/>
+              <text x="55" y="424" fill="#b7ad8c" font-family="monospace" font-size="13">TRACKED RIG 1.72m · RIGHT IMPACT TOOL · LEFT FIELD COIL · REAR SERVICE PORT</text>
+            </svg>
+          </div>
+          <aside class="callouts">
+            <h3>设计标注</h3>
+            <div class="callout"><b>01 / 拳炮不是步枪</b><p>冲击扳手结构贴近前臂，攻击动作像机械直拳，避免传统持枪英雄轮廓。</p></div>
+            <div class="callout"><b>02 / 磁场护臂</b><p>左臂明显短于右臂，圆形线圈让“防护与推开”成为第二动作语言。</p></div>
+            <div class="callout"><b>03 / 可维护背面</b><p>背部检修舱、卷线盘和扭矩标记必须可见，强调它首先是一台维修机。</p></div>
+            <div class="callout"><b>04 / 禁用英雄模板</b><p>无 V 形冠饰、无面罩、无白蓝红主色、无双足骑士比例。</p></div>
+            <div class="swatches" aria-label="R-17 色板">
+              <i style="background:#74775c"></i><i style="background:#282b24"></i><i style="background:#d79a3b"></i><i style="background:#b9dd78"></i><i style="background:#e6d7a8"></i>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="cast" class="shell">
+        <header class="section-head">
+          <h2>六组角色设计</h2>
+          <p>每个设计用功能、轮廓和动作表达理念，而不是依赖文化刻板印象或对既有名机的换色。</p>
+        </header>
+        <div class="cast-grid">
+          <article class="cast-card" data-design="r17" style="--accent:#b9dd78">
+            <svg viewBox="0 0 320 245" role="img" aria-label="R-17 锻火拳">
+              <ellipse cx="163" cy="218" rx="82" ry="13" fill="#11130d"/>
+              <rect x="105" y="171" width="116" height="54" rx="20" fill="#23251f" stroke="#10120d" stroke-width="6"/>
+              <circle cx="135" cy="198" r="14" fill="#81714e"/><circle cx="191" cy="198" r="14" fill="#81714e"/>
+              <rect x="117" y="79" width="91" height="94" rx="14" fill="#74775c" stroke="#282b23" stroke-width="7"/>
+              <path d="m122 162 77-75" stroke="#d79a3b" stroke-width="17"/>
+              <rect x="130" y="31" width="67" height="47" rx="10" fill="#666b57" stroke="#282b23" stroke-width="7"/>
+              <rect x="142" y="47" width="43" height="15" fill="#172019"/><path d="M150 54h27" stroke="#b9dd78" stroke-width="5"/>
+              <path d="M118 99 86 162" stroke="#626854" stroke-width="18"/><circle cx="80" cy="173" r="20" fill="#353a31" stroke="#b9dd78" stroke-width="4"/>
+              <path d="m207 101 30 63" stroke="#626854" stroke-width="18"/><rect x="224" y="153" width="72" height="28" rx="6" fill="#4f5649" stroke="#25271f" stroke-width="6"/>
+            </svg>
+            <span class="number">DESIGN 01 / PLAYER</span><h3>R-17「锻火拳」</h3><em>维修不是退路，是战斗目的。</em>
+            <p>低重心双履带、右拳炮、左磁场护臂与高位排气背包。沉默、自主，会拒绝把伙伴当作可牺牲成本。</p>
+            <div class="tags"><span>非对称</span><span>维修机</span><span>直拳后坐</span></div>
+          </article>
+
+          <article class="cast-card" data-design="ran" style="--accent:#e4a43c">
+            <svg viewBox="0 0 320 245" role="img" aria-label="岚·韦斯机械师肖像">
+              <path d="M68 231c14-68 44-90 92-90s81 22 94 90" fill="#454b3a" stroke="#24271f" stroke-width="7"/>
+              <path d="m83 218 30-70 41 82" fill="#8e5735"/>
+              <path d="M120 118c-14-17-17-65 4-86 26-27 79-8 82 32 2 33-15 67-44 74-17 4-31-6-42-20z" fill="#b98b67" stroke="#352820" stroke-width="6"/>
+              <path d="M113 82c-16-38 7-70 43-70 36 0 59 25 55 56-22-21-46-28-78-14l-20 28z" fill="#302d28"/>
+              <path d="M113 51c-16 9-21 28-15 47l17-14" fill="#25231f"/>
+              <rect x="112" y="55" width="43" height="20" rx="8" fill="#344139" stroke="#201f1c" stroke-width="5" transform="rotate(-8)"/>
+              <rect x="153" y="49" width="43" height="20" rx="8" fill="#5c492d" stroke="#201f1c" stroke-width="5" transform="rotate(5)"/>
+              <path d="M143 101q16 8 31-1" fill="none" stroke="#54372c" stroke-width="3"/>
+              <path d="M205 160 254 99" stroke="#7b6543" stroke-width="11"/><path d="m239 92 28 23M251 81l26 21" stroke="#c29b52" stroke-width="7"/>
+              <circle cx="98" cy="187" r="9" fill="#b9dd78"/>
+            </svg>
+            <span class="number">DESIGN 02 / RADIO</span><h3>岚·韦斯</h3><em>“路线我来算，决定你来做。”</em>
+            <p>披肩、工具包和双色护目镜构成轮廓。她只作为通讯肖像与维修伙伴出现，绝不变成隐藏驾驶员。</p>
+            <div class="tags"><span>人类技师</span><span>无线电</span><span>开放维修</span></div>
+          </article>
+
+          <article class="cast-card" data-design="hector" style="--accent:#df653d">
+            <svg viewBox="0 0 320 245" role="img" aria-label="铁冠赫克托冠军机">
+              <ellipse cx="160" cy="219" rx="110" ry="17" fill="#11130d"/>
+              <rect x="54" y="166" width="212" height="58" rx="18" fill="#24251f" stroke="#10110e" stroke-width="7"/>
+              <circle cx="91" cy="194" r="15" fill="#796746"/><circle cx="126" cy="194" r="15" fill="#796746"/><circle cx="161" cy="194" r="15" fill="#796746"/><circle cx="196" cy="194" r="15" fill="#796746"/><circle cx="231" cy="194" r="15" fill="#796746"/>
+              <rect x="99" y="81" width="122" height="87" rx="13" fill="#654a34" stroke="#29251d" stroke-width="8"/>
+              <circle cx="160" cy="124" r="32" fill="#262820" stroke="#d65b35" stroke-width="8"/>
+              <circle cx="160" cy="124" r="14" fill="#e0a044"/>
+              <rect x="126" y="35" width="68" height="48" rx="10" fill="#292b24" stroke="#9a7a43" stroke-width="6"/>
+              <rect x="139" y="52" width="42" height="10" fill="#f0aa43"/>
+              <path d="M101 102 57 148M219 102l45 46" stroke="#655038" stroke-width="20"/><circle cx="48" cy="157" r="18" fill="#2b2a23"/><circle cx="273" cy="157" r="18" fill="#2b2a23"/>
+            </svg>
+            <span class="number">DESIGN 03 / CHAMPION</span><h3>铁冠·赫克托</h3><em>救援机械被制度改造成裁决者。</em>
+            <p>超宽履带、液压夹臂与胸前专有锁具。败北时锁具碎裂而主体保留，视觉上完成从武器回到救援平台的转变。</p>
+            <div class="tags"><span>理念宿敌</span><span>矿井救援</span><span>环形胸锁</span></div>
+          </article>
+
+          <article class="cast-card" data-design="fang" style="--accent:#c66a3d">
+            <svg viewBox="0 0 320 245" role="img" aria-label="赤砂牙轮">
+              <ellipse cx="160" cy="191" rx="95" ry="22" fill="#11130d" opacity=".7"/>
+              <g stroke="#4b3c2c" stroke-width="10" stroke-linecap="round">
+                <path d="M128 113 61 167M139 130 73 194M181 113l72 54M174 132l70 63M139 102 85 88M181 102l54-15"/>
+              </g>
+              <ellipse cx="161" cy="119" rx="70" ry="48" fill="#6f3827" stroke="#2c231d" stroke-width="8"/>
+              <circle cx="126" cy="113" r="31" fill="#282824" stroke="#c39145" stroke-width="7"/>
+              <g stroke="#c39145" stroke-width="5"><path d="M126 68v22M126 136v22M81 113h22M149 113h22M94 81l16 16M143 130l16 16M94 145l16-16M143 97l16-16"/></g>
+              <circle cx="189" cy="107" r="9" fill="#f0a34a"/>
+            </svg>
+            <span class="number">DESIGN 04 / SWARM</span><h3>赤砂牙轮</h3><em>可维修设备被做成一次性消耗品。</em>
+            <p>六足贴地轮廓与偏置切割齿轮，移动像急促敲击。被焊死的维修盖是联盟浪费逻辑的直接证据。</p>
+            <div class="tags"><span>六足</span><span>偏置齿轮</span><span>高速接触</span></div>
+          </article>
+
+          <article class="cast-card" data-design="bulwark" style="--accent:#c49543">
+            <svg viewBox="0 0 320 245" role="img" aria-label="铁壁角斗机">
+              <ellipse cx="160" cy="209" rx="94" ry="19" fill="#11130d"/>
+              <rect x="83" y="163" width="154" height="54" rx="18" fill="#20211d" stroke="#10110e" stroke-width="7"/>
+              <circle cx="112" cy="190" r="13" fill="#70654f"/><circle cx="145" cy="190" r="13" fill="#70654f"/><circle cx="178" cy="190" r="13" fill="#70654f"/><circle cx="211" cy="190" r="13" fill="#70654f"/>
+              <rect x="103" y="72" width="114" height="96" rx="12" fill="#745038" stroke="#2c2820" stroke-width="9"/>
+              <rect x="116" y="132" width="88" height="17" fill="#c49543"/>
+              <g stroke="#34281c" stroke-width="6"><path d="m122 149 18-17M150 149l18-17M178 149l18-17"/></g>
+              <path d="M105 100 56 163M215 100l50 63" stroke="#66543d" stroke-width="18"/>
+              <circle cx="52" cy="170" r="17" fill="#3a3328"/><circle cx="269" cy="170" r="17" fill="#3a3328"/>
+              <rect x="132" y="91" width="56" height="13" fill="#f0b34f"/>
+            </svg>
+            <span class="number">DESIGN 05 / BULWARK</span><h3>铁壁角斗机</h3><em>把防护误解为拒绝改变。</em>
+            <p>压缩机方舱、短履带与外伸撑臂形成近方形剪影。冲锋前先落臂加压，重量感来自节奏而非单纯放大。</p>
+            <div class="tags"><span>压缩舱</span><span>液压撑臂</span><span>重装推进</span></div>
+          </article>
+
+          <article class="cast-card" data-design="arc" style="--accent:#9cd7c8">
+            <svg viewBox="0 0 320 245" role="img" aria-label="苍雷浮游卫">
+              <ellipse cx="160" cy="205" rx="72" ry="17" fill="#11130d" opacity=".55"/>
+              <path d="m111 111-67-29 29 64zM209 111l67-29-29 64z" fill="#56625c" stroke="#35403b" stroke-width="7"/>
+              <path d="M116 112 74 98M204 112l43-14" stroke="#879b92" stroke-width="8"/>
+              <circle cx="160" cy="118" r="51" fill="#28302e" stroke="#80a49a" stroke-width="8"/>
+              <circle cx="160" cy="118" r="34" fill="none" stroke="#9cd7c8" stroke-width="5" stroke-dasharray="10 8"/>
+              <circle cx="160" cy="118" r="15" fill="#b9f4c9"/>
+              <path d="M140 169 131 221M180 169l11 52" stroke="#6f8178" stroke-width="4"/>
+              <path d="M126 221h13M185 221h13" stroke="#b9f4c9" stroke-width="4"/>
+            </svg>
+            <span class="number">DESIGN 06 / RANGED</span><h3>苍雷浮游卫</h3><em>远程控制仍把代价留在地面。</em>
+            <p>气象雷达核心、不对称路牌散热翼和拖曳接地链。攻击前同心环收紧三次，给予清晰危险预告。</p>
+            <div class="tags"><span>同心圆</span><span>薄翼</span><span>远程电击</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="relations" class="shell">
+        <header class="section-head">
+          <h2>关系与理念</h2>
+          <p>冲突不是“正义主角对邪恶坏人”，而是五种维护世界的方法互相施压，最终迫使制度公开接受检修。</p>
+        </header>
+        <div class="map">
+          <svg class="map-lines" viewBox="0 0 1200 430" aria-hidden="true">
+            <g fill="none" stroke-width="3">
+              <path d="M250 92 515 187" stroke="#b9dd78"/><path d="M950 92 685 187" stroke="#df653d"/>
+              <path d="M250 345 515 250" stroke="#e4a43c"/><path d="M950 345 685 250" stroke="#9b4e31"/>
+              <path d="M340 97 860 97" stroke="#6f684f" stroke-dasharray="10 9"/>
+            </g>
+          </svg>
+          <div class="node ran"><strong>岚 · 伙伴而非操纵者</strong><small>从替 R-17 决定一切，成长为提供信息并尊重其选择。</small></div>
+          <div class="node hector"><strong>赫克托 · 理念宿敌</strong><small>相信严格竞争能避免战争，最终承认规则也必须被维护。</small></div>
+          <div class="node r17"><strong>R-17 · 行动中心</strong><small>以“先修复，再胜利”的选择迫使所有人重新定义力量。</small></div>
+          <div class="node public"><strong>荒原聚落 · 共同体</strong><small>不是等待英雄拯救，而是接收协议、参与公开维护。</small></div>
+          <div class="node alliance"><strong>铁冠联盟 · 制度压力</strong><small>把稀缺与维修密钥包装成娱乐和服从。</small></div>
+        </div>
+      </section>
+
+      <section id="story" class="shell">
+        <header class="section-head">
+          <h2>三幕演出板与无线电剧场</h2>
+          <p>游戏内置完整五章《三幕无线电剧场与黑匣子档案》：从第 17 次重启、第二场护卫公共维修棚信标、决赛前夜赫克托未删改的救援日志，到终局广播《公开通用维护协定》。</p>
+        </header>
+        <div class="storyboard">
+          <article class="beat">
+            <svg viewBox="0 0 360 190" role="img" aria-label="第一幕赤砂车站">
+              <rect width="360" height="190" fill="#403d30"/><circle cx="294" cy="42" r="36" fill="#b97832" opacity=".55"/>
+              <path d="M0 142 360 107v83H0z" fill="#252821"/><path d="M20 151h320" stroke="#c29a44" stroke-width="5" stroke-dasharray="28 18"/>
+              <g transform="translate(145 56) scale(.58)"><rect x="38" y="105" width="122" height="56" rx="20" fill="#23251f"/><rect x="54" y="39" width="91" height="70" rx="12" fill="#74775c"/><rect x="69" y="7" width="62" height="36" rx="8" fill="#626854"/><path d="M78 24h42" stroke="#b9dd78" stroke-width="8"/><path d="m145 61 55 45" stroke="#626854" stroke-width="18"/></g>
+              <g fill="#6f3827"><ellipse cx="65" cy="136" rx="24" ry="15"/><ellipse cx="291" cy="126" rx="24" ry="15"/></g>
+            </svg>
+            <b>ACT 01 / 第 17 次重启 · 可修复的骸骨</b><h3>赤砂车站</h3><p>旧维护机 R-17 携炉心冲刺（Core Dash）与爆铆拳炮登场，在拆解赤砂牙轮群的同时回收开源维护件，拒绝拆解绿溪老工程机。</p>
+          </article>
+          <article class="beat">
+            <svg viewBox="0 0 360 190" role="img" aria-label="第二幕钢梁高架">
+              <rect width="360" height="190" fill="#343a31"/><path d="M0 58h360M0 120h360" stroke="#77684e" stroke-width="13"/><path d="M52 0v190M304 0v190" stroke="#282b25" stroke-width="18"/>
+              <path d="M70 54 48 112M288 54l29 67M168 58l-18 62" stroke="#d5b56a" stroke-width="5"/>
+              <circle cx="180" cy="120" r="46" fill="none" stroke="#9cd7c8" stroke-width="8"/><circle cx="180" cy="120" r="28" fill="none" stroke="#b9dd78" stroke-width="5"/>
+              <g fill="#c49a47"><rect x="101" y="122" width="39" height="32"/><rect x="220" y="112" width="39" height="42"/></g>
+            </svg>
+            <b>ACT 02 / 坍塌高架 · 护卫维修棚信标</b><h3>钢梁高架</h3><p>第二场竞技场生成“公共维修棚信标”。R-17 守住信标并在周围迎击铁壁角斗机，触发岚·韦斯的过载支援脉冲与护甲修复。</p>
+          </article>
+          <article class="beat">
+            <svg viewBox="0 0 360 190" role="img" aria-label="第三幕铁冠决赛">
+              <rect width="360" height="190" fill="#35231c"/><g stroke="#df653d" stroke-width="3" opacity=".55"><path d="M180 95 0 20M180 95 360 20M180 95 0 175M180 95 360 175"/></g>
+              <g transform="translate(218 45) scale(.55)"><rect x="10" y="133" width="170" height="54" rx="17" fill="#24251f"/><rect x="45" y="57" width="100" height="78" rx="10" fill="#654a34"/><circle cx="95" cy="95" r="27" fill="#24261f" stroke="#d65b35" stroke-width="8"/><rect x="66" y="15" width="58" height="42" rx="8" fill="#292b24"/></g>
+              <g transform="translate(70 86) scale(.43)"><rect x="37" y="105" width="142" height="65" rx="24" fill="#24261f"/><rect x="53" y="30" width="110" height="80" rx="16" fill="#74775c"/><path d="m162 65 90 35" stroke="#e4a43c" stroke-width="15"/></g>
+              <circle cx="181" cy="105" r="21" fill="#e4a43c" opacity=".35"/><path d="M166 105h30M181 90v30" stroke="#ffe09a" stroke-width="5"/>
+            </svg>
+            <b>ACT 03 / 未删改的救援日志 · 铁冠粉碎</b><h3>铁冠主场</h3><p>赫克托在三阶段决战中展开双肩排热翼并主动暴露胸前“铁冠锁具”（1.45x 破甲窗口），R-17 击碎锁具后向全荒原广播开源维护协议。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="architecture" class="shell">
+        <header class="section-head">
+          <h2>程序化机甲动画架构</h2>
+          <p>零外部图片与音频文件：全部多关节机甲动作、热血番剧切入特写（Anime Cut-in）、冲击帧（Impact Frames）与 Web Audio 合成音效均由代码实时生成，并与 60Hz 固定步长确定性仿真严格解耦。</p>
+        </header>
+        <div class="storyboard">
+          <article class="beat">
+            <b>01 / MULTI-JOINT PROCEDURAL RIG</b>
+            <h3>多部件关节与物理反馈</h3>
+            <p>R-17 具备独立滚动履带轮辐、呼吸起伏躯干、旋转磁盾能量环、液压活塞后坐力回缩、膛口十字闪光、抛壳轨迹与双肩展开散热鳍；首领赫克托具备三阶段变形与高速旋转胸锁。</p>
+          </article>
+          <article class="beat">
+            <b>02 / ANIME CUT-IN &amp; IMPACT FRAMES</b>
+            <h3>番剧演出与 Web Audio 合成</h3>
+            <p>关键节点弹出横向动态矢量立绘切入条（支持 reduced-motion 简化），配合首领击破瞬间的高反差黑白冲击帧与纯 Web Audio API 实时合成的铆钉炮、电磁脉冲与凯旋号角。</p>
+          </article>
+          <article class="beat">
+            <b>03 / 60HZ SEEDED DETERMINISM</b>
+            <h3>固定步长确定性仿真</h3>
+            <p>炉心冲刺（Core Dash）、第二场维修棚护卫信标与第三场铁冠锁具破甲窗口全部运行在无 Math.random() 的种子 PRNG 上，确保无头仿真、渲染模式与自动化测试 100% 一致。</p>
+          </article>
+        </div>
+        <a class="back" href="../">返回可玩原型</a>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">本页为《废土斗机祭》原创程序化概念设定，不使用外部字体、图片、生成服务或既有作品资产。角色设计以当前单地图、单玩家、三类敌人和一个 Boss 的 MVP 为边界。</div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080b12" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <title>废土斗机祭 / Wasteland Iron Circuit</title>
+  </head>
+  <body>
+    <main id="app">
+      <div id="game"></div>
+      <section id="hud" aria-live="polite"></section>
+      <aside id="broadcast" aria-live="polite" aria-atomic="true"></aside>
+      <aside id="cutin" aria-live="polite" aria-hidden="true"></aside>
+      <aside id="radio" aria-live="polite"></aside>
+      <section id="panel" role="dialog" aria-modal="true"></section>
+      <section id="drawer" role="dialog" aria-modal="true" aria-label="三幕剧情与无线电档案"></section>
+      <p id="controls">WASD / 方向键移动 · Space / Shift 炉心冲刺 · M 音效开关 · P 暂停 · 武器自动开火</p>
+    </main>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

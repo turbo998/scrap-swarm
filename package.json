@@ -1,0 +1,35 @@
+{
+  "name": "scrap-swarm",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --pretty false",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "bot": "tsx scripts/bot-report.ts",
+    "check:prod": "tsx scripts/check-prod-isolation.ts",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run build && npm run check:prod && npm run test:e2e && npm run bot",
+    "verify": "npm run typecheck && npm run lint && npm run test && npm run build && npm run check:prod && npm run test:e2e && npm run bot"
+  },
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.0",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
+    "tsx": "^4.20.6",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.2",
+    "vite": "^7.2.2",
+    "vitest": "^4.0.8"
+  }
+}
